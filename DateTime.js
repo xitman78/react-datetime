@@ -365,14 +365,14 @@ var Datetime = createClass({
         ev.preventDefault();
 		ev.stopPropagation();
 
-		if (this.props.input && this.state.open === true && !this.props.open) {
+		if (this.props.input && this.state.open) {
 			this.setState({open: false});
 			//console.log('Closing');
 			//this.closeCalendar();
 		} else {
 			//console.log('Opening');
             this.setState({open: true});
-			this.openCalendar();
+			// this.openCalendar();
 		}
 	},
 
@@ -446,7 +446,7 @@ var Datetime = createClass({
 					key: 'i-addon-i',
 					className: (this.props.customAddonClass ? this.props.customAddonClass : 'glyphicon glyphicon-calendar'),
 					style: {cursor: 'pointer'}
-				}, '$')] ));
+				})] ));
 
             children = [ DOM.div({
 				className: 'input-group',
