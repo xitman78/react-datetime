@@ -78,9 +78,5 @@
     "object-assign": "^3.0.0",
     "prop-types": "^15.5.7",
     "react-onclickoutside": "^5.9.0"
-  },
-  "pre-commit": [
-    "lint",
-    "test:all"
-  ]
+  }
 }

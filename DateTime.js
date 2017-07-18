@@ -29,7 +29,7 @@ var Datetime = createClass({
 		strictParsing: TYPES.bool,
 		closeOnSelect: TYPES.bool,
 		closeOnTab: TYPES.bool,
-		customControl: TYPES.func,
+        customAddonClass: TYPES.string,
 	},
 
 	getDefaultProps: function() {
@@ -360,7 +360,24 @@ var Datetime = createClass({
 		});
 	},
 
+    togglePicker: function(ev) {
+
+        ev.preventDefault();
+		ev.stopPropagation();
+
+		if (this.props.input && this.state.open === true && !this.props.open) {
+			this.setState({open: false});
+			//console.log('Closing');
+			//this.closeCalendar();
+		} else {
+			//console.log('Opening');
+            this.setState({open: true});
+			this.openCalendar();
+		}
+	},
+
 	handleClickOutside: function() {
+		// console.log('Handle click outside', arguments);
 		if ( this.props.input && this.state.open && !this.props.open ) {
 			this.setState({ open: false }, function() {
 				this.props.onBlur( this.state.selectedDate || this.state.inputValue );
@@ -411,7 +428,7 @@ var Datetime = createClass({
 		;
 
 		if ( this.props.input ) {
-			let inputs = [ DOM.input( assign({
+			var inputs = [ DOM.input( assign({
 				key: 'i',
 				type: 'text',
 				className: 'form-control',
@@ -420,9 +437,17 @@ var Datetime = createClass({
 				onKeyDown: this.onInputKey,
 				value: this.state.inputValue
 			}, this.props.inputProps ))];
-			if (this.props.customControl) {
-                inputs.push(this.props.customControl);
-			}
+
+                inputs.push(DOM.span({
+					key: 'i-addon',
+					className: 'input-group-addon',
+					onClick: this.togglePicker,
+                }, [ DOM.i({
+					key: 'i-addon-i',
+					className: (this.props.customAddonClass ? this.props.customAddonClass : 'glyphicon glyphicon-calendar'),
+					style: {cursor: 'pointer'}
+				}, '$')] ));
+
             children = [ DOM.div({
 				className: 'input-group',
 				key: 'input-wrapper'}, inputs) ];
