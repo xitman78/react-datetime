@@ -28,7 +28,8 @@ var Datetime = createClass({
 		open: TYPES.bool,
 		strictParsing: TYPES.bool,
 		closeOnSelect: TYPES.bool,
-		closeOnTab: TYPES.bool
+		closeOnTab: TYPES.bool,
+		customControl: TYPES.func,
 	},
 
 	getDefaultProps: function() {
@@ -47,7 +48,8 @@ var Datetime = createClass({
 			strictParsing: true,
 			closeOnSelect: false,
 			closeOnTab: true,
-			utc: false
+			utc: false,
+            customControl: null,
 		};
 	},
 
@@ -402,7 +404,7 @@ var Datetime = createClass({
 
 	render: function() {
 		var DOM = React.DOM,
-			className = 'rdt input-group' + (this.props.className ?
+			className = 'rdt' + (this.props.className ?
                   ( Array.isArray( this.props.className ) ?
                   ' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 			children = []
@@ -417,11 +419,10 @@ var Datetime = createClass({
 				onChange: this.onInputChange,
 				onKeyDown: this.onInputKey,
 				value: this.state.inputValue
-			}, this.props.inputProps )),
-			DOM.span( assign({
-				key: 'ad',
-				className: 'input-group-addon',
-			}), '$')];
+			}, this.props.inputProps ))];
+			if (this.props.customControl) {
+                children.push(this.props.customControl);
+			}
 		} else {
 			className += ' rdtStatic';
 		}

@@ -89,7 +89,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			open: TYPES.bool,
 			strictParsing: TYPES.bool,
 			closeOnSelect: TYPES.bool,
-			closeOnTab: TYPES.bool
+			closeOnTab: TYPES.bool,
+			customControl: TYPES.func,
 		},
 
 		getDefaultProps: function() {
@@ -108,7 +109,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				strictParsing: true,
 				closeOnSelect: false,
 				closeOnTab: true,
-				utc: false
+				utc: false,
+	            customControl: null,
 			};
 		},
 
@@ -463,7 +465,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 		render: function() {
 			var DOM = React.DOM,
-				className = 'rdt input-group' + (this.props.className ?
+				className = 'rdt' + (this.props.className ?
 	                  ( Array.isArray( this.props.className ) ?
 	                  ' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 				children = []
@@ -478,11 +480,10 @@ return /******/ (function(modules) { // webpackBootstrap
 					onChange: this.onInputChange,
 					onKeyDown: this.onInputKey,
 					value: this.state.inputValue
-				}, this.props.inputProps )),
-				DOM.span( assign({
-					key: 'ad',
-					className: 'input-group-addon',
-				}), '$')];
+				}, this.props.inputProps ))];
+				if (this.props.customControl) {
+	                children.push(this.props.customControl);
+				}
 			} else {
 				className += ' rdtStatic';
 			}
