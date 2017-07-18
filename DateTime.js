@@ -411,7 +411,7 @@ var Datetime = createClass({
 		;
 
 		if ( this.props.input ) {
-			children = [ DOM.input( assign({
+			let inputs = [ DOM.input( assign({
 				key: 'i',
 				type: 'text',
 				className: 'form-control',
@@ -421,8 +421,12 @@ var Datetime = createClass({
 				value: this.state.inputValue
 			}, this.props.inputProps ))];
 			if (this.props.customControl) {
-                children.push(this.props.customControl);
+                inputs.push(this.props.customControl);
 			}
+            children = [ DOM.div({
+				className: 'input-group',
+				key: 'input-wrapper'}, inputs) ];
+
 		} else {
 			className += ' rdtStatic';
 		}
