@@ -417,7 +417,11 @@ var Datetime = createClass({
 				onChange: this.onInputChange,
 				onKeyDown: this.onInputKey,
 				value: this.state.inputValue
-			}, this.props.inputProps ))];
+			}, this.props.inputProps )),
+			DOM.span( assign({
+				key: 'ad',
+				className: 'input-group-addon',
+			}), '$')];
 		} else {
 			className += ' rdtStatic';
 		}
