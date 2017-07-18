@@ -402,7 +402,7 @@ var Datetime = createClass({
 
 	render: function() {
 		var DOM = React.DOM,
-			className = 'rdt' + (this.props.className ?
+			className = 'rdt input-group' + (this.props.className ?
                   ( Array.isArray( this.props.className ) ?
                   ' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 			children = []
