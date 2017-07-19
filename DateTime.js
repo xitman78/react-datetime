@@ -448,10 +448,10 @@ var Datetime = createClass({
 					key: 'i-addon',
 					className: 'input-group-addon',
 					onClick: this.togglePicker,
+                    style: {cursor: 'pointer'},
                 }, [ DOM.i({
 					key: 'i-addon-i',
 					className: (this.props.customAddonClass ? this.props.customAddonClass : 'glyphicon glyphicon-calendar'),
-					style: {cursor: 'pointer'}
 				})] ));
 
             children = [ DOM.div({
