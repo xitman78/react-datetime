@@ -386,7 +386,7 @@ var Datetime = createClass({
 			this.setState({ open: false, justClosed: true }, function() {
 				this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 			});
-		} else {
+		} else if (this.state.justClosed) {
 			this.setState({justClosed: false});
 		}
 	},
