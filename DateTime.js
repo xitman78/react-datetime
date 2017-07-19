@@ -366,22 +366,28 @@ var Datetime = createClass({
 		ev.stopPropagation();
 
 		if (this.props.input && this.state.open) {
-			this.setState({open: false});
-			//console.log('Closing');
-			//this.closeCalendar();
+			if (this.state.justClosed) {
+               this.setState({justClosed: false});
+			} else {
+                this.closeCalendar();
+			}
 		} else {
-			//console.log('Opening');
-            this.setState({open: true});
-			// this.openCalendar();
+            if (this.state.justClosed) {
+                this.setState({justClosed: false});
+            } else {
+                this.openCalendar();
+            }
 		}
 	},
 
 	handleClickOutside: function() {
 		// console.log('Handle click outside', arguments);
 		if ( this.props.input && this.state.open && !this.props.open ) {
-			this.setState({ open: false }, function() {
+			this.setState({ open: false, justClosed: true }, function() {
 				this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 			});
+		} else {
+			this.setState({justClosed: false});
 		}
 	},
 

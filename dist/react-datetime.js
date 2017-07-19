@@ -426,23 +426,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	        ev.preventDefault();
 			ev.stopPropagation();
 
-			if (this.props.input && this.state.open === true && !this.props.open) {
-				this.setState({open: false});
-				//console.log('Closing');
-				//this.closeCalendar();
+			if (this.props.input && this.state.open) {
+				if (this.state.justClosed) {
+	               this.setState({justClosed: false});
+				} else {
+	                this.closeCalendar();
+				}
 			} else {
-				//console.log('Opening');
-	            this.setState({open: true});
-				this.openCalendar();
+	            if (this.state.justClosed) {
+	                this.setState({justClosed: false});
+	            } else {
+	                this.openCalendar();
+	            }
 			}
 		},
 
 		handleClickOutside: function() {
 			// console.log('Handle click outside', arguments);
 			if ( this.props.input && this.state.open && !this.props.open ) {
-				this.setState({ open: false }, function() {
+				this.setState({ open: false, justClosed: true }, function() {
 					this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 				});
+			} else {
+				this.setState({justClosed: false});
 			}
 		},
 
@@ -507,7 +513,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						key: 'i-addon-i',
 						className: (this.props.customAddonClass ? this.props.customAddonClass : 'glyphicon glyphicon-calendar'),
 						style: {cursor: 'pointer'}
-					}, '$')] ));
+					})] ));
 
 	            children = [ DOM.div({
 					className: 'input-group',
